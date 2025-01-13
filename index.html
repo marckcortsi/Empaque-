@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>REVKO</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <button class="menu-btn" id="toggleSidebarBtn">☰</button>
+      <h1>REVKO</h1>
+    </div>
+  </header>
+
+  <div id="flash-messages" class="error"></div>
+
+  <div id="login-section" class="login-container">
+    <h2>INICIO DE SESIÓN</h2>
+    <form id="loginForm">
+      <label for="usuario">USUARIO:</label>
+      <input type="text" id="usuario" name="usuario" required />
+      <br />
+      <label for="password">CONTRASEÑA:</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <button type="submit" class="btn">ENTRAR</button>
+    </form>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div style="margin-bottom:1rem; text-align:center;">
+      <img id="userFoto" src="" alt="FOTO USUARIO" style="width:80px; height:80px; border-radius:50%; object-fit:cover; display:none; margin:0 auto;" />
+      <p id="userNombre" style="margin-top:0.5rem;"></p>
+    </div>
+    <h2 class="sidebar-title">MENÚ</h2>
+    <button class="logout-btn" id="btnLogout">CERRAR SESIÓN</button>
+    <hr />
+    <div id="menu-pedidos" style="display:none;">
+      <button class="nav-btn section-btn" data-target="pedidos-section">PEDIDOS</button>
+    </div>
+    <div id="menu-surtido" style="display:none;">
+      <button class="nav-btn section-btn" data-target="surtido-section">SURTIDO</button>
+    </div>
+    <div id="menu-empaque" style="display:none;">
+      <button class="nav-btn section-btn" data-target="empaque-section">EMPAQUE</button>
+    </div>
+    <div id="menu-embarque" style="display:none;">
+      <button class="nav-btn section-btn" data-target="embarque-section">EMBARQUE</button>
+    </div>
+    <div id="menu-reportes" style="display:none;">
+      <button class="nav-btn section-btn" data-target="reportes-section">REPORTES</button>
+    </div>
+    <div id="menu-dashboard" style="display:none;">
+      <button class="nav-btn section-btn" data-target="dashboard-section">DASHBOARD</button>
+    </div>
+    <div id="menu-config" style="display:none;">
+      <button class="nav-btn section-btn" data-target="config-section">CONFIGURACIÓN</button>
+    </div>
+  </div>
+
+  <div id="main-content" class="content" style="display: none;">
+    <section id="pedidos-section" class="section-container" style="display:none;">
+      <h2>PEDIDOS</h2>
+      <div>
+        <label>NUEVO PEDIDO:</label>
+        <input type="text" id="pedido-nuevo" placeholder="NÚMERO DE PEDIDO" />
+        <button class="btn" id="btnRegistrarPedido">REGISTRAR</button>
+      </div>
+      <div id="pedidos-lista"></div>
+    </section>
+
+    <section id="surtido-section" class="section-container" style="display:none;">
+      <h2>SURTIDO</h2>
+      <button class="btn" id="btnComenzarSurtido">COMENZAR</button>
+      <div id="surtido-disponibles"></div>
+      <hr />
+      <div id="surtido-form" style="display:none;">
+        <h3>PEDIDO SELECCIONADO: <span id="surtido-pedido-num"></span></h3>
+        <p>FECHA/HORA DE INICIO: <span id="surtido-fecha-hora-ini"></span></p>
+        <label>OBSERVACIONES:</label>
+        <input type="text" id="surtido-observaciones" />
+        <br />
+        <button class="btn" id="btnFinalizarSurtido">FINALIZAR</button>
+      </div>
+      <hr />
+      <div id="surtido-enprogreso"></div>
+    </section>
+
+    <section id="empaque-section" class="section-container" style="display:none;">
+      <h2>EMPAQUE</h2>
+      <button class="btn" id="btnComenzarEmpaque">COMENZAR</button>
+      <div id="empaque-disponibles"></div>
+      <hr />
+      <div id="empaque-form" style="display:none;">
+        <h3>PEDIDO EN EMPAQUE: <span id="empaque-pedido-num"></span></h3>
+        <p>INICIO: <span id="empaque-fecha-hora-ini"></span></p>
+        <label>CAJAS:</label>
+        <input type="number" id="empaque-cajas" value="0" />
+        <br />
+        <label>PALLETS:</label>
+        <input type="number" id="empaque-pallets" value="0" />
+        <br />
+        <label>ESTATUS:</label>
+        <select id="empaque-estatus">
+          <option value="COMPLETO">COMPLETO</option>
+          <option value="INCOMPLETO">INCOMPLETO</option>
+          <option value="INVIDENCIA">INVIDENCIA</option>
+          <option value="COMENTARIOS">COMENTARIOS</option>
+        </select>
+        <br />
+        <label>OBSERVACIONES:</label>
+        <input type="text" id="empaque-observaciones" />
+        <br />
+        <button class="btn" id="btnFinalizarEmpaque">FINALIZAR</button>
+      </div>
+      <hr />
+      <div id="empaque-enprogreso"></div>
+    </section>
+
+    <section id="embarque-section" class="section-container" style="display:none;">
+      <h2>EMBARQUE</h2>
+      <div id="embarque-pendientes"></div>
+      <hr />
+      <div id="embarque-form" style="display:none;">
+        <h3>CONFIRMAR SALIDA - PEDIDO: <span id="embarque-pedido-num"></span></h3>
+        <label>TIPO SALIDA:</label>
+        <select id="embarque-tipo-salida">
+          <option value="LOCAL">LOCAL</option>
+          <option value="PAQUETERIA">PAQUETERIA</option>
+          <option value="TRASPASO">TRASPASO</option>
+          <option value="MERCADO LIBRE">MERCADO LIBRE</option>
+          <option value="OTRO">OTRO</option>
+        </select>
+        <br />
+        <div id="embarque-local-extra" style="display:none;">
+          <label>FECHA DE CITA:</label>
+          <input type="date" id="embarque-fecha-cita" />
+        </div>
+        <br />
+        <label>OBSERVACIONES SALIDA:</label>
+        <input type="text" id="embarque-observaciones" />
+        <br />
+        <button class="btn" id="btnConfirmarSalida">CONFIRMAR</button>
+      </div>
+    </section>
+
+    <section id="reportes-section" class="section-container" style="display:none;">
+      <h2>REPORTES</h2>
+      <div>
+        <label>PEDIDO:</label>
+        <input type="text" id="filtro-pedido" />
+        <label>FECHA INICIAL:</label>
+        <input type="date" id="filtro-fecha-inicial" />
+        <label>FECHA FINAL:</label>
+        <input type="date" id="filtro-fecha-final" />
+        <label>USUARIO:</label>
+        <select id="filtro-usuario"></select>
+        <button class="btn" id="btnFiltrarReportes">FILTRAR</button>
+        <button class="btn" id="btnLimpiarFiltro">LIMPIAR</button>
+        <button class="btn" id="btnExportarExcel">EXPORTAR EXCEL</button>
+      </div>
+      <hr />
+      <div id="reportes-container"></div>
+    </section>
+
+    <section id="dashboard-section" class="section-container" style="display:none;">
+      <h2>DASHBOARD</h2>
+      <h3 id="fecha-actual" style="margin-bottom:0.5rem;"></h3>
+      <p id="hora-actual" style="font-size:1.3rem; margin-bottom:1rem;"></p>
+      <div id="dashboard-info"></div>
+      <h4>GRÁFICO</h4>
+      <canvas id="dashboardChart" width="400" height="200"></canvas>
+      <div id="dashboard-extra" style="margin-top:2rem;"></div>
+    </section>
+
+    <section id="config-section" class="section-container" style="display:none;">
+      <h2>CONFIGURACIÓN</h2>
+      <div>
+        <h3>CREAR NUEVO USUARIO</h3>
+        <label>NOMBRE:</label>
+        <input type="text" id="nuevo-usuario-nombre" />
+        <label>CONTRASEÑA:</label>
+        <input type="text" id="nuevo-usuario-pass" />
+        <label>TIPO:</label>
+        <select id="nuevo-usuario-tipo">
+          <option value="ADMINISTRATIVO">ADMINISTRATIVO</option>
+          <option value="SURTIDO">SURTIDO</option>
+          <option value="EMPAQUE">EMPAQUE</option>
+          <option value="SUPERVISOR">SUPERVISOR</option>
+          <option value="GERENTE">GERENTE</option>
+        </select>
+        <br />
+        <label>FOTO (.JPG):</label>
+        <input type="file" id="nuevo-usuario-foto" accept="image/jpeg" style="text-transform:none;" />
+        <br />
+        <button class="btn" id="btnCrearUsuario">CREAR USUARIO</button>
+      </div>
+      <hr />
+      <button class="btn" id="btnDescargarDB">DESCARGAR BASE DE DATOS</button>
+      <hr />
+      <div id="config-usuarios-lista"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
