@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("login-section").style.display = "block";
           document.getElementById("main-content").style.display = "none";
           document.getElementById("sidebar").classList.remove("show");
-          document.getElementById("flash-messages").innerHTML = "<p>SESIÓN CERRADA</p>";
+          document.getElementById("flash-messages").innerHTML = "<p> </p>";
         }
       } catch {}
     });
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       const cont = document.getElementById("pedidos-lista");
       if (!cont) return;
-      let html = "<h3>LISTADO DE PEDIDOS</h3>";
+      let html = "<h3>LISTADO</h3>";
       if (data.length===0) {
         html += "<p>NO HAY PEDIDOS REGISTRADOS</p>";
       } else {
@@ -348,9 +348,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       const cont = document.getElementById("surtido-disponibles");
       if (!cont) return;
-      let html = "<h3>PEDIDOS DISPONIBLES PARA SURTIR</h3>";
+      let html = "<h3>PEDIDOS</h3>";
       if (data.length===0) {
-        html += "<p>NO HAY PEDIDOS REGISTRADOS PARA SURTIR</p>";
+        html += "<p>NO HAY PEDIDOS PARA SURTIR</p>";
       } else {
         html += `<div class="table-wrapper"><table>
           <tr><th>PEDIDO</th><th>FECHA</th><th>HORA</th></tr>`;
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       const cont = document.getElementById("surtido-enprogreso");
       if (!cont) return;
-      let html = "<h3>PEDIDOS EN PROGRESO DE SURTIDO</h3>";
+      let html = "<h3>PEDIDOS EN PROGRESO</h3>";
       if (data.length===0) {
         html += "<p>NO TIENES PEDIDOS EN PROGRESO DE SURTIDO</p>";
         trackingIdSurtido = null;
@@ -399,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       const cont = document.getElementById("empaque-disponibles");
       if (!cont) return;
-      let html = "<h3>PEDIDOS PARA EMPACAR</h3>";
+      let html = "<h3>PEDIDOS</h3>";
       if (data.length===0) {
         html += "<p>NO HAY PEDIDOS POR EMPACAR</p>";
       } else {
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await resp.json();
       const cont = document.getElementById("empaque-enprogreso");
       if (!cont) return;
-      let html = "<h3>PEDIDOS EN PROGRESO DE EMPAQUE</h3>";
+      let html = "<h3>PEDIDOS EN PROGRESO</h3>";
       if (data.length===0) {
         html += "<p>NO TIENES PEDIDOS EN PROGRESO DE EMPAQUE</p>";
         trackingIdEmpaque = null;

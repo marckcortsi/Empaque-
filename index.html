@@ -38,26 +38,26 @@
     <h2 class="sidebar-title">MENÚ</h2>
     <button class="logout-btn" id="btnLogout">CERRAR SESIÓN</button>
     <hr />
-    <div id="menu-pedidos"   style="display:none;">
-      <button class="nav-btn" data-target="pedidos-section">PEDIDOS</button>
+    <div id="menu-pedidos" style="display:none;">
+      <button class="nav-btn section-btn" data-target="pedidos-section">PEDIDOS</button>
     </div>
-    <div id="menu-surtido"   style="display:none;">
-      <button class="nav-btn" data-target="surtido-section">SURTIDO</button>
+    <div id="menu-surtido" style="display:none;">
+      <button class="nav-btn section-btn" data-target="surtido-section">SURTIDO</button>
     </div>
-    <div id="menu-empaque"   style="display:none;">
-      <button class="nav-btn" data-target="empaque-section">EMPAQUE</button>
+    <div id="menu-empaque" style="display:none;">
+      <button class="nav-btn section-btn" data-target="empaque-section">EMPAQUE</button>
     </div>
-    <div id="menu-embarque"  style="display:none;">
-      <button class="nav-btn" data-target="embarque-section">EMBARQUE</button>
+    <div id="menu-embarque" style="display:none;">
+      <button class="nav-btn section-btn" data-target="embarque-section">EMBARQUE</button>
     </div>
-    <div id="menu-reportes"  style="display:none;">
-      <button class="nav-btn" data-target="reportes-section">REPORTES</button>
+    <div id="menu-reportes" style="display:none;">
+      <button class="nav-btn section-btn" data-target="reportes-section">REPORTES</button>
     </div>
     <div id="menu-dashboard" style="display:none;">
-      <button class="nav-btn" data-target="dashboard-section">DASHBOARD</button>
+      <button class="nav-btn section-btn" data-target="dashboard-section">DASHBOARD</button>
     </div>
-    <div id="menu-config"    style="display:none;">
-      <button class="nav-btn" data-target="config-section">CONFIGURACIÓN</button>
+    <div id="menu-config" style="display:none;">
+      <button class="nav-btn section-btn" data-target="config-section">CONFIGURACIÓN</button>
     </div>
   </div>
 
@@ -65,7 +65,7 @@
     <section id="pedidos-section" class="section-container" style="display:none;">
       <h2>PEDIDOS</h2>
       <div>
-        <label>REGISTRAR NUEVO PEDIDO:</label>
+        <label>NUEVO PEDIDO:</label>
         <input type="text" id="pedido-nuevo" placeholder="NÚMERO DE PEDIDO" />
         <button class="btn" id="btnRegistrarPedido">REGISTRAR</button>
       </div>
@@ -107,7 +107,7 @@
         <select id="empaque-estatus">
           <option value="COMPLETO">COMPLETO</option>
           <option value="INCOMPLETO">INCOMPLETO</option>
-          <option value="INVIDENCIA">INVIDENCIA</option>
+          <option value="INCIDENCIA">INCIDENCIA</option>
           <option value="COMENTARIOS">COMENTARIOS</option>
         </select>
         <br />
@@ -144,14 +144,6 @@
         <input type="text" id="embarque-observaciones" />
         <br />
         <button class="btn" id="btnConfirmarSalida">CONFIRMAR</button>
-      </div>
-
-      <div id="embarque-entrega-local" style="display:none;">
-        <h3>CONFIRMAR ENTREGA - PEDIDO: <span id="embarque-pedido-num-2"></span></h3>
-        <label>OBSERVACIONES:</label>
-        <input type="text" id="embarque-observaciones-entrega" />
-        <br />
-        <button class="btn" id="btnConfirmarEntregaLocal">CONFIRMAR ENTREGA</button>
       </div>
     </section>
 
@@ -214,5 +206,15 @@
   </div>
 
   <script src="app.js"></script>
+  <script>
+    window.addEventListener('beforeunload', function (e) {
+      // Personaliza el mensaje sólo si hay cambios sin guardar.
+      let confirmationMessage = 'Tienes cambios sin guardar. ¿Seguro que deseas salir?';
+    
+      (e || window.event).returnValue = confirmationMessage; // Para compatibilidad con algunos navegadores
+      return confirmationMessage; // Para otros navegadores
+    });
+    </script>
+    
 </body>
 </html>
