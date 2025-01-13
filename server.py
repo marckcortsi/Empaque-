@@ -807,4 +807,4 @@ def download_db():
 
 if __name__=="__main__":
     init_db()
-    app.run(host="192.168.100.15", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
